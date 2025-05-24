@@ -1,0 +1,51 @@
+Adaptive Current Sensing:
+* Low sampling during parking/sleep
+* Medium during normal driving
+* High during acceleration and fast charge
+
+How SOC Calculated
+* SOC VS OCV recalibrate the soc with ocv curve while idle state
+* avoid OCV update on deadband/flat curve 
+* Update the Qmax at each cycle
+* OCV implementation:
+    * Enter Rest Mode - wait 5-15min
+    * Per-Cell Voltage Sampling - read the cell voltage and average
+    * Temperature Measurement - Temperature Measurement
+    * Mapping Cell Voltage to SOC
+    * Consensus SOC Determination
+    * Blend or Apply Correction of OCV
+
+How to Measure OCV
+	Use HPPC tester device 
+
+How To Measure Internal Impedance 
+	add temperature data as compensation (impedance sensitive to temperature)	
+	detect certain event when bus meet the condition:
+        * Sudden change in current (e.g., >5 A within 100 ms).
+        * Flat temperature (to avoid thermal effects).
+        * Small SOC change (to assume constant OCV).
+        * Low noise (avoid PWM or switching noise regions).
+
+How estimate range
+	- 
+
+How SOH is calculated
+	- (impedance, heat growth as battery aged); zBol/zEol 
+	- Qmax (last cycle)/Qbol (beginning of life)
+
+Simulate Battery Cell & BMS in matlab&simulink
+	-Cell Model - make digital twin of the cell characterization (collecting the data like thevenin method,OCV) ask AI for more
+	-Bms Model - check system criticality
+
+SOC Current sensing
+	-INA229
+	-Filter cap 0.1 - 1uf on Rshunt
+	-Digital Isolated module
+
+Cell Voltage sensing
+	-ltc
+
+
+HPPC Tester
+    * During testing the energy meter always calculating
+    * After resting periode at certain soc level, discharge to another soc point level and continue testing
